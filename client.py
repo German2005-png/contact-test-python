@@ -28,7 +28,7 @@ flex_container.pack(fill="x", padx=20, pady=20)
 def boton_reutilizable(posicion, texto, comando, color_fondo, color_texto, color_activo_fondo, color_activo_texto, font, side, padX, padY):
     return tk.Button(posicion, text=texto, command=comando, bg=color_fondo, fg=color_texto, font=font, activebackground=color_activo_fondo, activeforeground=color_activo_texto, borderwidth=0).pack(side=side, padx= padX, pady=padY)
 
-# El hr de Tkinter XD
+# El hr de Tkinter
 hr = tk.Frame(ventana, height=2, bg="#2A5072").pack(fill="x")
 titulo = tk.Label(flex_container, text="Contactos", bg="#0F1C27", foreground="#fff", font=fuente_titulo)
 titulo.pack(side="left")
