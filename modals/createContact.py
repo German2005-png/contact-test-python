@@ -3,6 +3,11 @@ from tkinter import font, messagebox
 from components.buttonStyle import boton_style
 from app import create_contacto
 
+def validate_digits_max_length(texto):
+    if(texto.isdigit() or texto == ""):
+        return len(texto) <= 12
+    return False
+
 def contact_save(modal, mostrar_products, name_entry, phone_entry):
     name = name_entry.get().strip()
     phone = phone_entry.get().strip()
@@ -27,7 +32,7 @@ def create_Contact(ventana, mostrar_products):
     modal.transient(ventana)
     modal.attributes("-alpha", 0.98)
     modal.title("Crear Contacto")
-    vcmd = (modal.register(lambda P: P.isdigit() or P == ""), '%P')
+    vcmd = modal.register(validate_digits_max_length)
     modal.configure(bg="#0F1C27")
     tk.Label(modal, text="Crear Contacto", fg="white", bg="#1e1e1e", font=fuente_titulo).pack(pady=20)
     tk.Frame(modal, height=2, bg="#2A5072").pack(fill="x")
@@ -36,7 +41,7 @@ def create_Contact(ventana, mostrar_products):
     entrada_nombre.pack(fill="x", padx=20, pady=10)
     entrada_nombre.focus_set()
     tk.Label(modal, text="Ingresar Número", fg="white", bg="#1e1e1e", font=fuente_label).pack(padx=20, fill="x")
-    entrada_numero = tk.Entry(modal, font=fuente_label, bg="#CAD9E6", fg="#000", borderwidth=0, validatecommand=vcmd, validate="key")
+    entrada_numero = tk.Entry(modal, font=fuente_label, bg="#CAD9E6", fg="#000", borderwidth=0, validatecommand=(vcmd, "%P"), validate="key")
     entrada_numero.pack(fill="x", padx=20, pady=10)
     # Botón para guardar el contacto
     # tk.Button(modal, text="Crear Contacto", bg="#35b5ff", fg="#fff", activeforeground="#fff", borderwidth=0, font=fuente_boton).pack()

@@ -24,10 +24,6 @@ fuente_boton = font.Font(family="Helvetica", size=12)
 
 flex_container = tk.Frame(ventana, bg="#0F1C27")
 flex_container.pack(fill="x", padx=20, pady=20)
-
-def boton_reutilizable(posicion, texto, comando, color_fondo, color_texto, color_activo_fondo, color_activo_texto, font, side, padX, padY):
-    return tk.Button(posicion, text=texto, command=comando, bg=color_fondo, fg=color_texto, font=font, activebackground=color_activo_fondo, activeforeground=color_activo_texto, borderwidth=0).pack(side=side, padx= padX, pady=padY)
-
 # El hr de Tkinter
 hr = tk.Frame(ventana, height=2, bg="#2A5072").pack(fill="x")
 titulo = tk.Label(flex_container, text="Contactos", bg="#0F1C27", foreground="#fff", font=fuente_titulo)
@@ -47,6 +43,12 @@ def delete_contacto(id):
         messagebox.showinfo("Éxito", "Contacto eliminado exitosamente.")
         mostrar_contactos()
 
+def validate_country(number):
+    area_codes = ["11", "221", "261", "264", "266", "299", "341", "342", "351", "381", "379", "387"]
+    if number in area_codes:
+        return "+54 9"
+    else: return ""
+
 def mostrar_contactos():
     for widget in content_product.winfo_children():
         widget.destroy()
@@ -61,6 +63,6 @@ def mostrar_contactos():
         boton_style(lista_article, "Editar Contacto", lambda id=contact[0]: edit_Contact((id), ventana, mostrar_contactos), "right")
 
         tk.Label(lista_article, text=f"{contact[1]}", bg="#0F1C27", foreground="#fff", font=fuente_contact_name).pack(anchor="w")
-        tk.Label(lista_article, text=f"{contact[2]}", bg="#0F1C27", foreground="#fff", font=fuente_number).pack(anchor="w")
+        tk.Label(lista_article, text=f"{validate_country(contact[2][:3])} {contact[2][:3]} {contact[2][4:8]} {contact[2][8:12]}", bg="#0F1C27", foreground="#fff", font=fuente_number).pack(anchor="w")
 mostrar_contactos()
 ventana.mainloop()
